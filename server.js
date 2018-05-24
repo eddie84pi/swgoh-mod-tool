@@ -11,7 +11,43 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 app.get('/', function (req, res) {
-  res.render('index.html', { pageCountMessage : null});
+
+	const swgoh = require("swgoh").swgoh;
+	const username = "Eddy Del Gormo";
+
+	swgoh.mods(username).then(function(mods){
+	
+		var bestMods = [];
+		var highestSpeeds = [];
+
+		mods.forEach(function(mod){
+
+			if (mod.primary.type == "Speed") {
+				var speed = parseInt(mod.primary.value.replace(/\+|%/g,''));
+				if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
+					highestSpeeds[mod.slot] = speed;
+					bestMods[mod.slot] = mod;
+				}
+			}
+		
+			mod.secondary.forEach(function(param){
+				
+				if (param.type == "Speed") {
+					var speed = parseInt(param.value.replace(/\+|%/g,''));
+					if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
+						highestSpeeds[mod.slot] = speed;
+						bestMods[mod.slot] = mod;
+					}
+				}
+				
+			});
+			
+		});
+		
+		res.render('index.html', { bestMods : bestMods, highestSpeeds: highestSpeeds});
+
+	});
+
 });
 
 // error handling
