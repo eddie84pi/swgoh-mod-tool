@@ -44,7 +44,7 @@ app.get('/', function (req, res) {
 			
 		});
 		
-		res.render('index.html', { bestMods : bestMods, highestSpeeds: highestSpeeds});
+		res.render('index.html', { bestMods : 'ciao', highestSpeeds: 'ciao'});
 
 	});
 
