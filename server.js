@@ -17,7 +17,6 @@ app.get('/', function (req, res) {
 
 	swgoh.mods(username).then(function(mods){
 	
-	
 		console.log("MODS: "+mods);
 
 		var bestMods = [];
@@ -53,6 +52,9 @@ app.get('/', function (req, res) {
 			});
 			
 		});
+
+		console.log("BESTMODS: "+bestMods);
+		console.log("HIGHESTSPEEDS: "+highestSpeeds);
 		
 		res.render('index.html', { bestMods : JSON.stringify(bestMods), highestSpeeds: JSON.stringify(highestSpeeds)});
 
