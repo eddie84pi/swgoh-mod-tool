@@ -17,13 +17,21 @@ app.get('/', function (req, res) {
 
 	swgoh.mods(username).then(function(mods){
 	
+	
+		console.log("MODS: "+mods);
+
 		var bestMods = [];
 		var highestSpeeds = [];
 
 		mods.forEach(function(mod){
 
+			console.log("MOD: "+mod);
+		
 			if (mod.primary.type == "Speed") {
 				var speed = parseInt(mod.primary.value.replace(/\+|%/g,''));
+				
+				console.log("SPEED: "+speed);
+				
 				if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
 					highestSpeeds[mod.slot] = speed;
 					bestMods[mod.slot] = mod;
@@ -31,6 +39,8 @@ app.get('/', function (req, res) {
 			}
 		
 			mod.secondary.forEach(function(param){
+				
+				console.log("PARAM: "+param);
 				
 				if (param.type == "Speed") {
 					var speed = parseInt(param.value.replace(/\+|%/g,''));
