@@ -29,11 +29,13 @@ app.get('/', function (req, res) {
 			if (mod.primary.type == "Speed") {
 				var speed = parseInt(mod.primary.value.replace(/\+|%/g,''));
 				
-				console.log("SPEED: "+speed);
+				console.log("SPEED - primary: "+speed);
 				
 				if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
 					highestSpeeds[mod.slot] = speed;
 					bestMods[mod.slot] = mod;
+
+					console.log("NEW BEST MOD - PRIMARY: speed = "+speed+", mod = "+mod);
 				}
 			}
 		
@@ -43,9 +45,14 @@ app.get('/', function (req, res) {
 				
 				if (param.type == "Speed") {
 					var speed = parseInt(param.value.replace(/\+|%/g,''));
+				
+					console.log("SPEED - secondary: "+speed);
+
 					if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
 						highestSpeeds[mod.slot] = speed;
 						bestMods[mod.slot] = mod;
+
+					console.log("NEW BEST MOD - SECONDARY: speed = "+speed+", mod = "+mod);
 					}
 				}
 				
