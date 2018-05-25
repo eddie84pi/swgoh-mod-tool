@@ -20,8 +20,8 @@ app.get('/', function (req, res) {
 	
 		console.log("MODS: "+mods);
 
-		var bestMods = [];
-		var highestSpeeds = [];
+		var bestModsArr = [];
+		var highestSpeedsArr = [];
 
 		mods.forEach(function(mod){
 
@@ -32,9 +32,9 @@ app.get('/', function (req, res) {
 				
 				console.log("SPEED: "+speed);
 				
-				if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
-					highestSpeeds[mod.slot] = speed;
-					bestMods[mod.slot] = mod;
+				if (highestSpeedsArr[mod.slot] == null || speed > highestSpeedsArr[mod.slot]) {
+					highestSpeedsArr[mod.slot] = speed;
+					bestModsArr[mod.slot] = mod;
 				}
 			}
 		
@@ -44,9 +44,9 @@ app.get('/', function (req, res) {
 				
 				if (param.type == "Speed") {
 					var speed = parseInt(param.value.replace(/\+|%/g,''));
-					if (highestSpeeds[mod.slot] == null || speed > highestSpeeds[mod.slot]) {
-						highestSpeeds[mod.slot] = speed;
-						bestMods[mod.slot] = mod;
+					if (highestSpeedsArr[mod.slot] == null || speed > highestSpeedsArr[mod.slot]) {
+						highestSpeedsArr[mod.slot] = speed;
+						bestModsArr[mod.slot] = mod;
 					}
 				}
 				
@@ -54,7 +54,7 @@ app.get('/', function (req, res) {
 			
 		});
 		
-		res.render('index.html', { bestMods : 'ciao', highestSpeeds: 'ciao'});
+		res.render('index.html', { bestMods : bestModsArr, highestSpeeds: highestSpeedsArr});
 
 	});
 
